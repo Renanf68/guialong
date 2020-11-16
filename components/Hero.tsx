@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useRouter } from "next/router"
 import Image from 'next/image'
 import { Flex, Heading, Text, InputGroup, Box, Input, InputRightAddon } from "@chakra-ui/react"
 import { SearchIcon } from '@chakra-ui/icons'
@@ -5,6 +7,28 @@ import { SearchIcon } from '@chakra-ui/icons'
 import Section from './Section'
 
 const Hero: React.FC = () => {
+  const [place, setPlace] = useState("")
+  const { push } = useRouter()
+  function handleSearch() {
+    if(place !== "") {
+      const uf = place?.split("-")[1] || ""
+      const city = place?.split("-")[0] || ""
+      push("/busca/:uf/:city", `/busca/${uf}/${city}`)
+    } else {
+      alert("Favor preencher sua localização.")
+    }
+  }
+  function handleKey(event) {
+    if(event.keyCode === 13) {
+      if(place !== "") {
+        const uf = place?.split("-")[1] || ""
+        const city = place?.split("-")[0] || ""
+        push("/busca/:uf/:city", `/busca/${uf}/${city}`)
+      } else {
+        alert("Favor preencher sua localização.")
+      }
+    }
+  }
   return (
     <Section h="100vh">
       <Flex
@@ -32,16 +56,22 @@ const Hero: React.FC = () => {
           <Input 
             type="text"
             borderLeftRadius="4" 
-            placeholder="Cidade" 
+            placeholder="Digitar 'recife-pe'" 
             bg="white"
             borderColor="gray.200"
+            value={place}
+            onKeyDown={(event: React.KeyboardEvent) => handleKey(event) }
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setPlace(e.currentTarget.value)}
             />
           <InputRightAddon
             borderColor="gray.200"
             bg="green.400"
             _hover={{bg: "green.300"}} 
             cursor="pointer"
-            children={<SearchIcon color="white" />} />
+            children={<SearchIcon color="white" />} 
+            onClick={handleSearch}
+          />
         </InputGroup>
       </Flex>
       <Box 

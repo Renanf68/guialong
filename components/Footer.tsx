@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
           alignItems="center"
         >
           <Text>
-            © {new Date().getFullYear()} | Guia Longevidade. All rights reserved.
+            © {new Date().getFullYear()} | Guia Longevidade.
           </Text>
           <Link href="/">
             <a>Termos de uso</a>
