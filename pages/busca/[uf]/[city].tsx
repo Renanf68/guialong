@@ -79,6 +79,7 @@ export default function HomeList({ homes }) {
     }
     setFilter(!filter)
   }
+  console.log(homeList)
   return (
     <Layout>
       <Section h="85vh"> 
@@ -107,7 +108,7 @@ export default function HomeList({ homes }) {
         </Flex>
         <Box p="4rem 0">
           {
-            homeList.length > 0 ? (
+            homeList?.length > 0 ? (
               homeList.map((home, index) => (
                 <HomeCard 
                   key={index}
