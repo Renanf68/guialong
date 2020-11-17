@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Flex, Box, Heading, Text, Icon, Button} from '@chakra-ui/react'
