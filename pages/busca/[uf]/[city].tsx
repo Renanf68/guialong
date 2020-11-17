@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import { useRouter } from "next/router"
 import Error from "next/error"
 import { Icon } from "@chakra-ui/react"
-import { MdTune } from "react-icons/md"
+import { MdTune, MdCheck } from "react-icons/md"
 
 import Layout from '../../../components/Layout'
 import { Flex, Box, Button, Text } from "@chakra-ui/react"
@@ -52,6 +52,10 @@ export default function HomeList({ homes }) {
   const [homeList, setHomeList] =useState([])
   useEffect(() => {
     setHomeList(homes);
+    const filtered = localStorage.getItem("homes_filter")
+    if(filtered === "true") {
+      handleFilter()
+    }
   }, []);
   const { isFallback } = useRouter();
   	if (!isFallback && !homes) {
@@ -77,6 +81,7 @@ export default function HomeList({ homes }) {
     } else {
       setHomeList(homes)
     }
+    localStorage.setItem("homes_filter", `${!filter}`)
     setFilter(!filter)
   }
   console.log(homeList)
@@ -91,20 +96,30 @@ export default function HomeList({ homes }) {
           alignItems="center"
           p="1rem 0"
           borderBottom="1px solid rgba(0,0,0,.1)"
+          color={filter ? "blue.600" : "#333"}
         >
-          <Icon as={MdTune} />
-          <Button 
-            bg="none"
-            p="0 2rem"
-            _hover={{bg: "none", color: "blue.600"}}
-            outline="none"
-            _focus={{outline: "none"}}
-            _active={{bg: "none"}}
-            onClick={handleFilter}
-            color={filter ? "blue.600" : "#333"}
+          <Box
+            w="10rem" 
+            flexDir="row" 
+            justifyContent="flex-start" 
+            alignItems="center"
           >
-            Com fotos
-          </Button>
+          <Icon as={MdTune} title="Filtros"/>
+            <Button 
+              bg="none"
+              p="0 0.2rem 0 2rem"
+              _hover={{bg: "none", color: "blue.600"}}
+              outline="none"
+              _focus={{outline: "none"}}
+              _active={{bg: "none"}}
+              onClick={handleFilter}
+            >
+              Com fotos
+            </Button>
+            {
+              filter && <Icon as={MdCheck} />
+            }
+          </Box>
         </Flex>
         <Box p="4rem 0">
           {
