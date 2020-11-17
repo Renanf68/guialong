@@ -26,7 +26,7 @@ const HomeCard: React.FC<cardProps> = ({
   return (
     <Flex 
       w="100%" 
-      flexDirection="row"
+      flexDirection={["column", "row"]}
       justifyContent="space-between"
       p="0.5rem" 
       boxShadow="2px 2px 2px rgba(0,0,0,.1)" 

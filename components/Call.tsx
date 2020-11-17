@@ -7,7 +7,12 @@ const Call: React.FC = () => {
   return (
     <Section pt="90px" pb="120px" bg="white">
       <Container flexDir="column" justifyContent="center" alignItems="center">
-        <Heading as="h2" fontSize="1.6rem" mb="24px">
+        <Heading 
+          as="h2" 
+          fontSize="1.6rem" 
+          mb="24px"
+          textAlign="center"
+          >
           Todos os nossos serviços são gratuitos para você!
         </Heading>
         <Button 

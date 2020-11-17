@@ -5,8 +5,13 @@ import { Flex, Heading, Text, InputGroup, Box, Input, InputRightAddon } from "@c
 import { SearchIcon } from '@chakra-ui/icons'
 
 import Section from './Section'
+import Container from './Container'
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  layoutMob: boolean
+}
+
+const Hero: React.FC<HeroProps> = ({ layoutMob }) => {
   const [place, setPlace] = useState("")
   const { push } = useRouter()
   function handleSearch() {
@@ -30,7 +35,7 @@ const Hero: React.FC = () => {
     }
   }
   return (
-    <Section h="100vh">
+    <Section h="100vh" bg={layoutMob ? "blue.600" : "none"}>
       <Flex
         w="100%"
         h="100%"
@@ -38,57 +43,65 @@ const Hero: React.FC = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Heading 
-          as="h1" 
-          textAlign="center" 
-          color="white" 
-          mb="12px" 
-          fontSize="3rem"
-          lineHeight="4rem"
-          maxW="800px"
-          >
-          Encontre a nova moradia do seu familiar idoso
-        </Heading>
-        <Text textAlign="center" color="white" fontWeight="700" mb="24px">
-          Busque por casas de repouso, residenciais para idosos e clínicas geriátricas na sua região
-        </Text>
-        <InputGroup maxW="360px">
-          <Input 
-            type="text"
-            borderLeftRadius="4" 
-            placeholder="Digitar 'recife-pe'" 
-            bg="white"
-            borderColor="gray.200"
-            value={place}
-            onKeyDown={(event: React.KeyboardEvent) => handleKey(event) }
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setPlace(e.currentTarget.value)}
+        <Container flexDir="column" justifyContent="center" alignItems="center">
+          <Heading 
+            as="h1" 
+            textAlign="center" 
+            color="white" 
+            mb="1rem"
+            mt={["-4rem", 0]} 
+            fontSize={["1.6rem", "3rem"]}
+            lineHeight={["2rem", "4rem"]}
+            maxW="800px"
+
+            >
+            Encontre a nova moradia do seu familiar idoso
+          </Heading>
+          <Text textAlign="center" color="white" fontWeight="700" mb="24px">
+            Busque por casas de repouso, residenciais para idosos e clínicas geriátricas na sua região
+          </Text>
+          <InputGroup maxW="360px">
+            <Input 
+              type="text"
+              borderLeftRadius="4" 
+              placeholder="Digitar 'recife-pe'" 
+              bg="white"
+              borderColor="gray.200"
+              value={place}
+              onKeyDown={(event: React.KeyboardEvent) => handleKey(event) }
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setPlace(e.currentTarget.value)}
+              />
+            <InputRightAddon
+              borderColor="gray.200"
+              bg="green.400"
+              _hover={{bg: "green.300"}} 
+              cursor="pointer"
+              children={<SearchIcon color="white" />} 
+              onClick={handleSearch}
             />
-          <InputRightAddon
-            borderColor="gray.200"
-            bg="green.400"
-            _hover={{bg: "green.300"}} 
-            cursor="pointer"
-            children={<SearchIcon color="white" />} 
-            onClick={handleSearch}
-          />
-        </InputGroup>
+          </InputGroup>
+        </Container>
       </Flex>
-      <Box 
-        w="100%"
-        height="100%"
-        position="absolute"
-        top="0"
-        left="0"
-        zIndex="-100"
-      >
-        <Image 
-          src="/hero-bg.jpg" 
-          width={1000} 
-          height={451} 
-          layout="responsive"
-        />
-      </Box>
+      {
+        !layoutMob && (
+          <Box 
+            w="100%"
+            height="100%"
+            position="absolute"
+            top="0"
+            left="0"
+            zIndex="-100"
+          >
+            <Image 
+              src="/hero-bg.jpg" 
+              width={1000} 
+              height={451} 
+              layout="responsive"
+            />
+          </Box>
+        )
+      }
     </Section>
   );
 }

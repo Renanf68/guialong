@@ -82,7 +82,7 @@ export default function HomeList({ homes }) {
   console.log(homeList)
   return (
     <Layout>
-      <Section h="85vh"> 
+      <Section minH="85vh"> 
       <Container flexDir="column">
         <Flex 
           w="100%" 
